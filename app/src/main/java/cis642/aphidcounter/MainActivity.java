@@ -1,5 +1,6 @@
 package cis642.aphidcounter;
 
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,9 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.*;
+
+import static cis642.aphidcounter.R.drawable.ic_launcher;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -57,16 +61,40 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Mat source = Highgui.imread("/res/drawable-hdpi/ic_launcher.png", Highgui.CV_LOAD_IMAGE_COLOR);
-        imageConverter = new ImageConverter(source);
-        imageConverter.convertImage();  /* Convert the image */
 
-        Mat converted_img;
-        converted_img = imageConverter.getConvertedImage();
+        Mat source = new Mat();
+        Mat convertedImage = new Mat();
 
-        Highgui.imwrite("/res/drawable-hdpi/outputimage.png", converted_img);
+        imageConverter = new ImageConverter();
+
+        try {
+            // Load the image resource as a Mat:
+            source = Utils.loadResource(MainActivity.this, R.drawable.bw_original2,
+                                                           Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+
+            imageConverter.SetSource(source);                       // Set the source Mat
+            imageConverter.ConvertImage();                          // Convert the image Mat
+            convertedImage = imageConverter.GetConvertedImage();    // Get the converted Image Mat
+
+            // Create a bitmap to store the converted image:
+            Bitmap bmConvertedImage = Bitmap.createBitmap(convertedImage.cols(),
+                                                          convertedImage.rows(),
+                                                          Bitmap.Config.ARGB_8888);
+
+            Utils.matToBitmap(convertedImage, bmConvertedImage);    // Convert the Mat to bitmap
+
+            // Get the imageview of the pic shown on the app screen:
+            ImageView ivAphidPic = (ImageView) findViewById(R.id.aphid_image);
+
+            // Update the image shown on the app screen to the newly converted image:
+            ivAphidPic.setImageBitmap(bmConvertedImage);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
+
 }
 
 

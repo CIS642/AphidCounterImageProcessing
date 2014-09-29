@@ -8,16 +8,16 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
+    <!--
     <TextView
         android:text="@string/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
+    -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <!-- This is the button that will be pressed to take the picture/operate the camera -->
         <Button
             android:id="@+id/take_picture_button"
@@ -26,6 +26,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:text="@string/take_picture" />
+    </LinearLayout>
 
         <!-- Test image -->
         <ImageView
@@ -34,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/bw_original2"
             android:contentDescription="" />
 
-    </LinearLayout>
 </RelativeLayout>
