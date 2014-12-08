@@ -4,6 +4,6 @@
     <string name="app_name">AphidCounter</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="take_picture">Take Picture</string>
+    <string name="take_picture">Test</string>
 
 </resources>

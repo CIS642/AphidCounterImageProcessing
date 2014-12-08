@@ -64,30 +64,42 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         Mat source = new Mat();
         Mat convertedImage = new Mat();
+        Mat aphidBg = new Mat();
 
         imageConverter = new ImageConverter();
 
         try {
             // Load the image resource as a Mat:
-            source = Utils.loadResource(MainActivity.this, R.drawable.bw_original2,
-                                                           Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+            source = Utils.loadResource(MainActivity.this, R.drawable.test_img2_small);
 
             imageConverter.SetSource(source);                       // Set the source Mat
             imageConverter.ConvertImage();                          // Convert the image Mat
             convertedImage = imageConverter.GetConvertedImage();    // Get the converted Image Mat
+            aphidBg = imageConverter.getImageBg();
+
+
+
+
+
 
             // Create a bitmap to store the converted image:
             Bitmap bmConvertedImage = Bitmap.createBitmap(convertedImage.cols(),
                                                           convertedImage.rows(),
                                                           Bitmap.Config.ARGB_8888);
+            Bitmap bmConvertedBg = Bitmap.createBitmap(aphidBg.cols(),
+                    aphidBg.rows(),
+                    Bitmap.Config.ARGB_8888);
 
             Utils.matToBitmap(convertedImage, bmConvertedImage);    // Convert the Mat to bitmap
+            Utils.matToBitmap(aphidBg,bmConvertedBg);
 
             // Get the imageview of the pic shown on the app screen:
-            ImageView ivAphidPic = (ImageView) findViewById(R.id.aphid_image);
+            ImageView ivAphidPic = (ImageView) findViewById(R.id.aphidImage);
+            ImageView ivAphidBg = (ImageView) findViewById(R.id.aphidBg);
 
             // Update the image shown on the app screen to the newly converted image:
             ivAphidPic.setImageBitmap(bmConvertedImage);
+            ivAphidBg.setImageBitmap(bmConvertedBg);
 
         } catch(Exception e){
             e.printStackTrace();
