@@ -5306,9 +5306,11 @@ public class Imgproc {
  * all the contours are drawn.
  * @param color Color of the contours.
  *
- * @see <a href="http://docs.opencv.org/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#drawcontours">org.opencv.imgproc.Imgproc.drawContours</a>
+ * @param cvWarpFillOutliers
+ *@param i
+ * @param heirarchy @see <a href="http://docs.opencv.org/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#drawcontours">org.opencv.imgproc.Imgproc.drawContours</a>
  */
-    public static void drawContours(Mat image, List<MatOfPoint> contours, int contourIdx, Scalar color)
+    public static void drawContours(Mat image, List<MatOfPoint> contours, int contourIdx, Scalar color, int cvWarpFillOutliers, int i, Mat heirarchy)
     {
         List<Mat> contours_tmplm = new ArrayList<Mat>((contours != null) ? contours.size() : 0);
         Mat contours_mat = Converters.vector_vector_Point_to_Mat(contours, contours_tmplm);
